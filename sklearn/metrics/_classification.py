@@ -1180,6 +1180,85 @@ def fbeta_score(y_true, y_pred, *, beta, labels=None, pos_label=1,
     return f
 
 
+def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cost_value_TP = 1):
+    """Compute the F-Cost score
+    
+    The F-Cost score is the weighted harmonic mean of precision and recall,
+    trying to reach its optimal value of positive real number and its worst 
+    value at 0. This score accounts the cost for identifying True Values
+    from Predicted Values. These costs are related to FP, FN and TP values.
+    
+    The `beta` parameter determines the weight of recall in the combined
+    score. ``beta < 1`` lends more weight to precision, while ``beta > 1``
+    favors recall (``beta -> 0`` considers only precision, ``beta -> +inf``
+    only recall).
+    
+    DISCLAIMER: This method is currently implemented for Binary 
+    Classification.
+
+    Parameters
+    ----------
+    y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) target values.
+    y_pred : 1d array-like, or label indicator array / sparse matrix
+        Estimated targets as returned by a classifier.
+    beta : float, optional, 1 by default
+        Determines the weight of recall in the combined score.
+    cost_value_FP : float, optional
+        Cost for identifying each False Positive Value
+    cost_value_FN : float, optional
+        Cost for identifying each False Negative Value
+    cost_value_TP : float, optional
+        Cost for identifying each True Positive Value
+    Returns
+    -------
+    f_cost_score : float 
+        F-Cost score of the positive class in binary classification.
+
+    See also
+    --------
+    precision_recall_fscore_support, multilabel_confusion_matrix, 
+    fbeta_score
+    
+    References
+    ----------
+    .. [1] R. Baeza-Yates and B. Ribeiro-Neto (2011).
+           Modern Information Retrieval. Addison Wesley, pp. 327-328.
+    .. [2] `Wikipedia entry for the F1-score
+           <https://en.wikipedia.org/wiki/F1_score>`_
+   
+   Examples
+    --------
+    >>> from sklearn.metrics import fcost_score
+    >>> y_true = [0, 1, 1, 1, 0, 1, 0]
+    >>> y_pred = [0, 1, 1, 0, 0, 0, 1]
+    >>> fcost_score(y_true, y_pred):
+    0.57...
+    >>> fcost_score(y_true, y_pred, beta =1.5, cost_value_FP = 1,cost_value_FN = 1,cost_value_TP = 1)
+    0.54...
+    >>> fcost_score(y_true, y_pred, beta =1.5, cost_value_FP = 10,cost_value_FN = 4,cost_value_TP = 0.5)
+    0.104..
+    
+    Notes
+    -----
+    This method is implemented for Binary Classification
+    """
+    
+    try:
+        assert (len(set(y_true))==2)&(len(set(y_pred))==2)&(len(set(y_pred).union(set(y_true)))==2)
+    except:
+        raise ValueError("Binary Classification Input is Required")
+    
+    TN,FP,FN,TP = confusion_matrix(y_true, y_pred).ravel()
+    
+    precison_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FP*FP)
+    recall_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FN*FN)
+    
+    f_cost_score = (1+beta**2)*(precison_cost*recall_cost)/((beta**2)*(precison_cost) + recall_cost)
+    
+    return f_cost_score
+
+
 def _prf_divide(numerator, denominator, metric,
                 modifier, average, warn_for, zero_division="warn"):
     """Performs division and handles divide-by-zero.
