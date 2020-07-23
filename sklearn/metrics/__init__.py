@@ -22,6 +22,7 @@ from ._classification import cohen_kappa_score
 from ._classification import confusion_matrix
 from ._classification import f1_score
 from ._classification import fbeta_score
+from ._classification import fcost_score
 from ._classification import hamming_loss
 from ._classification import hinge_loss
 from ._classification import jaccard_score
