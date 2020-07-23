@@ -1245,7 +1245,7 @@ def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cos
     """
     
     try:
-        assert (len(set(y_true))==2)&(len(set(y_pred))==2)&(len(set(y_pred).union(set(y_true)))==2)
+        assert (len(set(y_true))<=2)&(len(set(y_pred))<=2)&(len(set(y_pred).union(set(y_true)))<=2)
     except:
         raise ValueError("Binary Classification Input is Required")
     
