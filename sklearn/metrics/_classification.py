@@ -1244,12 +1244,20 @@ def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cos
     This method is implemented for Binary Classification
     """
     
-    try:
-        assert (len(set(y_true))<=2)&(len(set(y_pred))<=2)&(len(set(y_pred).union(set(y_true)))<=2)
-    except:
-        raise ValueError("Binary Classification Input is Required")
+    assert beta > 0
+        
+    output = confusion_matrix(y_true, y_pred)
     
-    TN,FP,FN,TP = confusion_matrix(y_true, y_pred).ravel()
+    if output.shape[0] == 1:
+        TP = output[0,0]
+        TN,FP,FN = 0,0,0
+
+    elif output.shape[0] > 2:
+        raise ValueError('Only binary classification is allowed')
+    
+    else:   
+        TN,FP,FN,TP = output.ravel()
+        
     
     precison_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FP*FP)
     recall_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FN*FN)
@@ -1263,33 +1271,132 @@ def show_confusion_matrix_desc(y_true, y_pred):
 
     '''Shows terminology and derivation from a confusion matrix.
     
+     A confusion matrix, also known as an error matrix,[8] is a specific table layout
+     that allows visualization of the performance of an algorithm, typically a supervised
+     learning one (in unsupervised learning it is usually called a matching matrix) (Source - Wiki)
+     
+     In predictive analytics, a table of confusion (sometimes also called a confusion matrix),
+     is a table with two rows and two columns that reports the number of false positives,
+     false negatives, true positives, and true negatives
+
+     DISCLAIMER: This method is currently implemented for Binary Classification.
+
+     Parameters
+     ----------
+     y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) target values.
+     y_pred : 1d array-like, or label indicator array / sparse matrix
+        Estimated targets as returned by a classifier.
+     
+     Returns
+     -------
+      False Positive / Type I error : Int
+      
+      False Negative / Type II error : Int
+     
+      Sensitivity / Recall / Hit Rate / True Positive Rate (TPR) : float 
+      
+      Specificity / Selectivity / True Negative Rate (TNR) : float
+          
+      Precision / Positive Predictive Value (PPV) : float
+          
+      Negative Predictive Value (NPV) : float
+      
+      Miss Rate / False Negative Rate (FNR) : float
+      
+      Fall-out / False Positive Rate (FPR) : float
+
+      False Discovery Rate (FDR) : float
+           
+      False Omission Rate (FOR) : float
+           
+      Threat Score / Critical Success Index (CSI) : float
+      
+      Accuracy (ACC) : float
+      
+      F1 Score : float
+      
+      Matthews Correlation Coefficient (MCC) : float
+      
+      Informedness / Bookmaker Informediness (BM) : float
+      
+      Markedness (MK) : float
+     
     
+    See also
+    --------
+    precision_recall_fscore_support, F1_score, fbeta_score, matthews_corrcoef
+    
+    References
+    ----------
+    .. [1]  Balayla, Jacques (2020). "Prevalence Threshold and the Geometry of Screening Curves". 
+            arXiv:2006.00398.
+^
+    .. [2] ` Tharwat A (August 2018). "Classification assessment methods". Applied Computing and Informatics.
+             doi:10.1016/j.aci.2018.08.003.
+             
+    .. [3]  `Wikipedia entry for the confusion-matrix
+           <https://en.wikipedia.org/wiki/Confusion_matrix>`_     
+    
+    Examples
+    --------
+    >>> from sklearn.metrics import show_confusion_matrix_desc
+    >>> y_true = [0, 1, 1, 1, 0, 1, 0]
+    >>> y_pred = [0, 1, 1, 0, 0, 0, 1]
+    >>> show_confusion_matrix_desc(y_true, y_pred):
+   
+   INFORMATION 
+    ------------ 
+    Type I error =  2 
+    Type II error =  1 
+    Sensitivity / Recall / Hit Rate / True Positive Rate (TPR) = 0.75 
+    Specificity / Selectivity / True Negative Rate (TNR) =  0.5 
+    Precision / Positive Predictive Value (PPV) =  0.6 
+    Negative Predictive Value (NPV) =  0.6666666666666666 
+    Miss Rate / False Negative Rate (FNR) =  0.25 
+    Fall-out / False Positive Rate (FPR) =  0.5 
+    False Discovery Rate (FDR) =  0.4 
+    False Omission Rate (FOR) =  0.3333333333333333 
+    Threat Score / Critical Success Index (CSI) =  0.5 
+    Accuracy (ACC) =  0.625 
+    F1 Score =  0.6666666666666666 
+    Matthews Correlation Coefficient (MCC) =  0.2581988897471611 
+    Informedness / Bookmaker Informediness (BM) =  0.25 
+    Markedness (MK) =  0.2666666666666666
 
-    '''
+    Notes
+    -----
+    This method is currently implemented for Binary Classification
+    """
+    ''' 
     
     
-    try:
-        assert (len(set(y_true))<=2)&(len(set(y_pred))<=2)&(len(set(y_pred).union(set(y_true)))<=2)
-    except:
-        raise ValueError("Binary Classification Input is Required")
+    output = confusion_matrix(y_true, y_pred)
+    
+    if output.shape[0] == 1:
+        TP = output[0,0]
+        TN,FP,FN = 0,0,0
 
-    TN,FP,FN,TP = confusion_matrix(y_true, y_pred).ravel()
+    elif output.shape[0] > 2:
+        raise ValueError('Only binary classification input is allowed')
+    
+    else:   
+        TN,FP,FN,TP = output.ravel()
 
-
-    (TPR) = (TP/(TP+FN))
-    (TNR) = TN/(TN+FP)
-    (PPV) = TP/(TP+FP)
-    (NPV) =  TN / (TN + FN)
-    (FNR) = FN/(FN+TP)
-    (FPR) = FP/(FN + TP)
-    (FDR) = FP/ (FP+TP)
-    (FOR) = FN / (FN +TN)
-    (CSI) = TP/(TP+FN+FP)
-    (ACC) = (TP + TN)/(TP+TN+FP+FN)
-    F1_Score = (2*TP)/(2*TP+FP+FN)
-    #Matthews Correlation Coefficient (MCC) = 
-    #Informedness / Bookmaker Informediness (BM) = 
-    #Markedness (MK) = 
+    TPR = (TP/(TP+FN))
+    TNR = TN/(TN+FP)
+    PPV = TP/(TP+FP)
+    NPV =  TN / (TN + FN)
+    FNR = FN/(FN+TP)
+    FPR = FP/(FN + TP)
+    FDR = FP/ (FP+TP)
+    FOR = FN / (FN +TN)
+    CSI = TP/(TP+FN+FP)
+    ACC = (TP + TN)/(TP+TN+FP+FN)
+    F1_Score = (2*TP)/((2*TP)+FP+FN)
+    MCC = ((TP*TN) - (FP*FN))/(((TP + FP) * (FN + TN) * (FP + TN) * (TP + FN))**(0.5))
+    informedness = TPR + TNR - 1
+    markedness = PPV + NPV - 1  
 
     print("INFORMATION",'\n'
         "------------",'\n'
@@ -1304,12 +1411,10 @@ def show_confusion_matrix_desc(y_true, y_pred):
         "Threat Score / Critical Success Index (CSI) = ", (CSI),'\n'
         "Accuracy (ACC) = ", (ACC),'\n'
         "F1 Score = ", F1_Score,'\n'
-        "Matthews Correlation Coefficient (MCC) = ",'\n'
-        "Informedness / Bookmaker Informediness (BM) = ",'\n'
-        "Markedness (MK) = ")
+        "Matthews Correlation Coefficient (MCC) = ", (MCC),'\n'
+        "Informedness / Bookmaker Informediness (BM) = ",informedness,'\n'
+        "Markedness (MK) = ",markedness)
 
-    return (TN,FP,FN,TP,TPR,TNR)
- 
     
 def _prf_divide(numerator, denominator, metric,
                 modifier, average, warn_for, zero_division="warn"):
