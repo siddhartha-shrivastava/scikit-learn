@@ -115,7 +115,7 @@ And hence we introduce, **F-Cost Score**
 
     fcost_score = ((1 + beta^2)*(cost_precision * cost_recall))/((beta^2 * cost_precision) * (cost_recall))
 
-Thus we can optimize the F-cost score by varying the threshold, thus varying FP,FN and TP.
+Thus we can optimize the F-cost score by varying the threshold, that is by varying FP,FN and TP.
 
 --------------------------------------------------------------------------------
 
