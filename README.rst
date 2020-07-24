@@ -36,7 +36,8 @@ for a list of core contributors. It is currently maintained by a team of volunte
 **Introduction  of New Functionalities**
 ------------------------------------------
 
-1. F-Cost
+**1. F-Cost**
+---------------
 
 `fcost_score` function is introduced to `sklearn.metrics` module.
 The F-Cost score is the product of cost function to the weighted harmonic mean of precision and recall, trying to reach its optimal value of positive real number and its worst value at 0.
@@ -116,3 +117,67 @@ And hence we introduce, **F-Cost Score**
 
 Thus we can optimize the F-cost score by varying the threshold, thus varying FP,FN and TP.
 
+--------------------------------------------------------------------------------
+
+**2. show_confusion_matrix_desc**
+----------------------------------
+
+**Disclaimer -- Current function support only binary input classification**
+
+The function will print out the terminology and derivation from a confusion matrix.
+
+In scikit-learn we have to call different functions separately for various derivation as Accuracy, F1 score, Precision, Recall and many other.
+
+By calling this function we can get **16** metrics which can be used according to the scenarios, also we get a sense of complete picture.
+
+**Following terminology and derivation would be printed**
+
+      *1. False Positive / Type I error* 
+      
+      *2. False Negative / Type II error*
+      
+      *3. Sensitivity / Recall / Hit Rate / True Positive Rate (TPR)*
+      
+      *4. Specificity / Selectivity / True Negative Rate (TNR)*
+      
+      *5. Precision / Positive Predictive Value (PPV)*
+      
+      *6. Negative Predictive Value (NPV)*
+      
+      *7. Miss Rate / False Negative Rate (FNR)*
+      
+      *8. Fall-out / False Positive Rate (FPR)*
+      
+      *9. False Discovery Rate (FDR)*
+      
+      *10. False Omission Rate (FOR)*
+      
+      *11. Threat Score / Critical Success Index (CSI)*
+      
+      *12. Accuracy (ACC)*
+      
+      *13. F1 Score*
+      
+      *14. Matthews Correlation Coefficient (MCC)*
+      
+      *15. Informedness / Bookmaker Informediness (BM)*
+      
+      *16. Markedness (MK)*
+      
+    
+**References**
+---------------
+
+[1]  Balayla, Jacques (2020). "Prevalence Threshold and the Geometry of Screening Curves". arXiv:2006.00398.
+
+[2]  `Wikipedia entry for the confusion-matrix <https://en.wikipedia.org/wiki/Confusion_matrix>`_  
+
+
+**FUTURE WORK**
+----------------
+1) Currently it is limited to binary classification, in future it can be scaled for multiclass classification.
+
+2) More derivations can be added
+
+
+    
