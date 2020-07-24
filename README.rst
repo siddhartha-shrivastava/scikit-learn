@@ -40,7 +40,7 @@ for a list of core contributors. It is currently maintained by a team of volunte
 ---------------
 
 `fcost_score` function is introduced to `sklearn.metrics` module.
-The F-Cost score is the product of cost function to the weighted harmonic mean of precision and recall, trying to reach its optimal value of positive real number and its worst value at 0.
+The F-Cost score is the product of cost function to the weighted harmonic mean of precision and recall, trying to reach its optimal value.
 
 This score accounts the **cost** for identifying True Values
 from Predicted Values. These costs are related to False Positive (FP), False Negative (FN) and True Positive (TP) values. Assuming user is interested in identifying positives, we have chosen F-Score as our basis function.
