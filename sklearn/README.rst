@@ -85,6 +85,7 @@ Thus we can think of many scenarios, when we can choose the cost function accord
 
 *e.g*
 For a certain function with variables (TP,FP,FN,TN)
+
 - beta = 3.5
 - cost_FP =  100
 - cost_FN =  05
