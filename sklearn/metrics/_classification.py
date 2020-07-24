@@ -1183,9 +1183,8 @@ def fbeta_score(y_true, y_pred, *, beta, labels=None, pos_label=1,
 def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cost_value_TP = 1):
     """Compute the F-Cost score
     
-    The F-Cost score is the weighted harmonic mean of precision and recall,
-    trying to reach its optimal value of positive real number and its worst 
-    value at 0. This score accounts the cost for identifying True Values
+    The F-Cost score is the  weighted harmonic mean of precision cost and recall cost,
+    trying to reach its optimal value. This score accounts the cost for identifying True Values
     from Predicted Values. These costs are related to FP, FN and TP values.
     
     The `beta` parameter determines the weight of recall in the combined
