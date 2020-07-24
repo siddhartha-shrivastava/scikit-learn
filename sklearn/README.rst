@@ -25,7 +25,6 @@ This score accounts the **cost** for identifying True Values
 from Predicted Values. These costs are related to False Positive (FP), False Negative (FN) and True Positive (TP) values.
 
 --True Negative(TN) is not taken as it is not involved in either Precision or Recall.
-
 The `beta` parameter determines the weight of recall in the combined
 score. ``beta < 1`` lends more weight to precision, while ``beta > 1``
 favors recall (``beta -> 0`` considers only precision, ``beta -> +inf``
@@ -38,7 +37,6 @@ It considers both the precision 'P' and the recall 'R' of the test to compute th
 beta = 1, which assumes the distribution is equally distributed.
 A smaller beta value, e.g 0.5, gives more weight to precision and less to recall, 
 whereas a larger beta value,e.g 2.0, gives less weight to precision and more weight to recall in the calculation of the score.
-
 It is a useful metric to use when both precision and recall are important but slightly more attention is needed on one or the other, 
 such as when false negatives are more important than false positives
 
