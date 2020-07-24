@@ -36,138 +36,87 @@ for a list of core contributors.
 
 It is currently maintained by a team of volunteers.
 
-Website: https://scikit-learn.org
-
-Installation
-------------
-
-Dependencies
-~~~~~~~~~~~~
-
-scikit-learn requires:
-
-- Python (>= 3.6)
-- NumPy (>= 1.13.3)
-- SciPy (>= 0.19.1)
-- joblib (>= 0.11)
-- threadpoolctl (>= 2.0.0)
-
-=======
-
-**Scikit-learn 0.20 was the last version to support Python 2.7 and Python 3.4.**
-scikit-learn 0.23 and later require Python 3.6 or newer.
-
-Scikit-learn plotting capabilities (i.e., functions start with ``plot_``
-and classes end with "Display") require Matplotlib (>= 2.1.1). For running the
-examples Matplotlib >= 2.1.1 is required. A few examples require
-scikit-image >= 0.13, a few examples require pandas >= 0.25.0, some examples
-require seaborn >= 0.9.0.
-
-User installation
-~~~~~~~~~~~~~~~~~
-
-If you already have a working installation of numpy and scipy,
-the easiest way to install scikit-learn is using ``pip``   ::
-
-    pip install -U scikit-learn
-
-or ``conda``::
-
-    conda install -c conda-forge scikit-learn
-
-The documentation includes more detailed `installation instructions <https://scikit-learn.org/stable/install.html>`_.
-
-
-Changelog
----------
-
-See the `changelog <https://scikit-learn.org/dev/whats_new.html>`__
-for a history of notable changes to scikit-learn.
-
-Development
------------
-
-We welcome new contributors of all experience levels. The scikit-learn
-community goals are to be helpful, welcoming, and effective. The
-`Development Guide <https://scikit-learn.org/stable/developers/index.html>`_
-has detailed information about contributing code, documentation, tests, and
-more. We've included some basic information in this README.
-
-Important links
-~~~~~~~~~~~~~~~
-
-- Official source code repo: https://github.com/scikit-learn/scikit-learn
-- Download releases: https://pypi.org/project/scikit-learn/
-- Issue tracker: https://github.com/scikit-learn/scikit-learn/issues
-
-Source code
-~~~~~~~~~~~
-
-You can check the latest sources with the command::
-
-    git clone https://github.com/scikit-learn/scikit-learn.git
-
-Contributing
-~~~~~~~~~~~~
-
-To learn more about making a contribution to scikit-learn, please see our
-`Contributing guide
-<https://scikit-learn.org/dev/developers/contributing.html>`_.
-
-Testing
-~~~~~~~
-
-After installation, you can launch the test suite from outside the
-source directory (you will need to have ``pytest`` >= 5.0.1 installed)::
-
-    pytest sklearn
-
-See the web page https://scikit-learn.org/dev/developers/advanced_installation.html#testing
-for more information.
-
-    Random number generation can be controlled during testing by setting
-    the ``SKLEARN_SEED`` environment variable.
-
-Submitting a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Before opening a Pull Request, have a look at the
-full Contributing page to make sure your code complies
-with our guidelines: https://scikit-learn.org/stable/developers/index.html
-
-Project History
----------------
+**scikit-learn** is a Python module for machine learning built on top of
+SciPy and is distributed under the 3-Clause BSD license.
 
 The project was started in 2007 by David Cournapeau as a Google Summer
 of Code project, and since then many volunteers have contributed. See
 the `About us <https://scikit-learn.org/dev/about.html#authors>`__ page
 for a list of core contributors.
 
-The project is currently maintained by a team of volunteers.
+It is currently maintained by a team of volunteers.
 
-**Note**: `scikit-learn` was previously referred to as `scikits.learn`.
+Website: https://scikit-learn.org
 
-Help and Support
-----------------
+**Adding new functionality**
+=============================
 
-Documentation
-~~~~~~~~~~~~~
+**Disclaimer -- Current function support on binary input classification**
 
-- HTML documentation (stable release): https://scikit-learn.org
-- HTML documentation (development version): https://scikit-learn.org/dev/
-- FAQ: https://scikit-learn.org/stable/faq.html
+The function will print out the terminology and derivation from a confusion matrix
 
-Communication
-~~~~~~~~~~~~~
+In scikit-learn we have to call different functions seperatly for various deriavtion as Accuracy, F1 score, Precision, Recall and many other.
 
-- Mailing list: https://mail.python.org/mailman/listinfo/scikit-learn
-- IRC channel: ``#scikit-learn`` at ``webchat.freenode.net``
-- Gitter: https://gitter.im/scikit-learn/scikit-learn
-- Twitter: https://twitter.com/scikit_learn
-- Stack Overflow: https://stackoverflow.com/questions/tagged/scikit-learn
-- Website: https://scikit-learn.org
+By calling this function we can get 16 metrics which can be used accoriding to the scenarios.
 
-Citation
-~~~~~~~~
 
-If you use scikit-learn in a scientific publication, we would appreciate citations: https://scikit-learn.org/stable/about.html#citing-scikit-learn
+**Following terminology and derivation would be printed**
+      *False Positive / Type I error* 
+      *False Negative / Type II error*
+      *Sensitivity / Recall / Hit Rate / True Positive Rate (TPR)*
+      *Specificity / Selectivity / True Negative Rate (TNR)*
+      *Precision / Positive Predictive Value (PPV)*
+      *Negative Predictive Value (NPV)*
+      *Miss Rate / False Negative Rate (FNR)*
+      *Fall-out / False Positive Rate (FPR)*
+      *False Discovery Rate (FDR)*
+      *False Omission Rate (FOR)*
+      *Threat Score / Critical Success Index (CSI)*
+      *Accuracy (ACC)*
+      *F1 Score*
+      *Matthews Correlation Coefficient (MCC)*
+      *Informedness / Bookmaker Informediness (BM)*
+      *Markedness (MK)*
+
+           
+    **Example**
+    --------
+    from sklearn.metrics import show_confusion_matrix_desc
+    y_true = [0, 1, 1, 1, 0, 1, 0]
+    y_pred = [0, 1, 1, 0, 0, 0, 1]
+    show_confusion_matrix_desc(y_true, y_pred):     
+                  
+   >>>INFORMATION 
+      ------------ 
+      Type I error =  2 
+      Type II error =  1 
+      Sensitivity / Recall / Hit Rate / True Positive Rate (TPR) = 0.75 
+      Specificity / Selectivity / True Negative Rate (TNR) =  0.5 
+      Precision / Positive Predictive Value (PPV) =  0.6 
+      Negative Predictive Value (NPV) =  0.6666666666666666 
+      Miss Rate / False Negative Rate (FNR) =  0.25 
+      Fall-out / False Positive Rate (FPR) =  0.5 
+      False Discovery Rate (FDR) =  0.4 
+      False Omission Rate (FOR) =  0.3333333333333333 
+      Threat Score / Critical Success Index (CSI) =  0.5 
+      Accuracy (ACC) =  0.625 
+      F1 Score =  0.6666666666666666 
+      Matthews Correlation Coefficient (MCC) =  0.2581988897471611 
+      Informedness / Bookmaker Informediness (BM) =  0.25 
+      Markedness (MK) =  0.2666666666666666
+      
+      
+    *References*
+    ----------
+    .. [1]  Balayla, Jacques (2020). "Prevalence Threshold and the Geometry of Screening Curves". 
+            arXiv:2006.00398.
+    .. [2]  `Wikipedia entry for the confusion-matrix
+           <https://en.wikipedia.org/wiki/Confusion_matrix>`_  
+     
+     
+     **FUTURE WORK**
+     =============================
+        1) Currently it is limited to binary classification, in future it can be scaled for multiclass classification.
+        2) More Functionality can be added
+     
+           
