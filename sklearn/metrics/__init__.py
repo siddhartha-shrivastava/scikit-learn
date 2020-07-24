@@ -20,6 +20,7 @@ from ._classification import balanced_accuracy_score
 from ._classification import classification_report
 from ._classification import cohen_kappa_score
 from ._classification import confusion_matrix
+from ._classification import show_confusion_matrix_desc
 from ._classification import f1_score
 from ._classification import fbeta_score
 from ._classification import fcost_score
