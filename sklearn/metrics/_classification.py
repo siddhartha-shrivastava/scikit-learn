@@ -1244,12 +1244,21 @@ def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cos
     This method is implemented for Binary Classification
     """
     
-    try:
-        assert (len(set(y_true))<=2)&(len(set(y_pred))<=2)&(len(set(y_pred).union(set(y_true)))<=2)
-    except:
-        raise ValueError("Binary Classification Input is Required")
+    assert beta > 0
+        
+    output = confusion_matrix(y_true, y_pred)
     
-    TN,FP,FN,TP = confusion_matrix(y_true, y_pred).ravel()
+    if output.shape[0] == 1:
+        TP = output[0,0]
+        TN,FP,FN = 0,0,0
+
+    elif output.shape[0] > 2:
+        raise ValueError('Only binary classification is allowed')
+    
+    else:   
+        TN,FP,FN,TP = output.ravel()
+
+
     
     precison_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FP*FP)
     recall_cost = (cost_value_TP*TP)/(cost_value_TP*TP + cost_value_FN*FN)
