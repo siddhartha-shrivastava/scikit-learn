@@ -1259,6 +1259,58 @@ def fcost_score(y_true, y_pred, beta =1, cost_value_FP = 1,cost_value_FN = 1,cos
     return f_cost_score
 
 
+def show_confusion_matrix_desc(y_true, y_pred):
+
+    '''Shows terminology and derivation from a confusion matrix.
+    
+    
+
+    '''
+    
+    
+    try:
+        assert (len(set(y_true))<=2)&(len(set(y_pred))<=2)&(len(set(y_pred).union(set(y_true)))<=2)
+    except:
+        raise ValueError("Binary Classification Input is Required")
+
+    TN,FP,FN,TP = confusion_matrix(y_true, y_pred).ravel()
+
+
+    (TPR) = (TP/(TP+FN))
+    (TNR) = TN/(TN+FP)
+    (PPV) = TP/(TP+FP)
+    (NPV) =  TN / (TN + FN)
+    (FNR) = FN/(FN+TP)
+    (FPR) = FP/(FN + TP)
+    (FDR) = FP/ (FP+TP)
+    (FOR) = FN / (FN +TN)
+    (CSI) = TP/(TP+FN+FP)
+    (ACC) = (TP + TN)/(TP+TN+FP+FN)
+    F1_Score = (2*TP)/(2*TP+FP+FN)
+    #Matthews Correlation Coefficient (MCC) = 
+    #Informedness / Bookmaker Informediness (BM) = 
+    #Markedness (MK) = 
+
+    print("INFORMATION",'\n'
+        "------------",'\n'
+        "Sensitivity / Recall / Hit Rate / True Positive Rate (TPR) = {}".format(TPR),'\n'
+        "Specificity / Selectivity / True Negative Rate (TNR) = ",(TNR),'\n'
+        "Precision / Positive Predictive Value (PPV) = ", (PPV),'\n'
+        "Negative Predictive Value (NPV) = ", (NPV),'\n'
+        "Miss Rate / False Negative Rate (FNR) = ", (FNR),'\n'
+        "Fall-out / False Positive Rate (FPR) = ", (FPR),'\n'
+        "False Discovery Rate (FDR) = ", (FDR),'\n'
+        "False Omission Rate (FOR) = ", (FOR),'\n'
+        "Threat Score / Critical Success Index (CSI) = ", (CSI),'\n'
+        "Accuracy (ACC) = ", (ACC),'\n'
+        "F1 Score = ", F1_Score,'\n'
+        "Matthews Correlation Coefficient (MCC) = ",'\n'
+        "Informedness / Bookmaker Informediness (BM) = ",'\n'
+        "Markedness (MK) = ")
+
+    return (TN,FP,FN,TP,TPR,TNR)
+ 
+    
 def _prf_divide(numerator, denominator, metric,
                 modifier, average, warn_for, zero_division="warn"):
     """Performs division and handles divide-by-zero.
