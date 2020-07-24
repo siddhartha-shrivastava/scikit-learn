@@ -74,7 +74,7 @@ Here the actual values are not important (as they are chosen by user according t
 **Hello Sir! We are selling insurance at discounted rate.**
 
 *Lets take another example*, suppose you own a telemarketing company, which sells insurance to customers, and there are 20 employees involved with each of them can call 10 customers/day i.e total of 6000 customer/month (30 day month). 
-And Each month they call customers of particular region.(for sake of simplicity, there are 5 regions in this example)
+And Each month they call customers of particular region.(and we know there are many regions for this domain)
 Now, lets say out of the 6000 customers the team can reach we define,  
 
 - `TP --> Customers who needed insurance and recieved a call.`
