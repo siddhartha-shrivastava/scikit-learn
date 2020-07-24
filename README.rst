@@ -38,136 +38,108 @@ It is currently maintained by a team of volunteers.
 
 Website: https://scikit-learn.org
 
-Installation
-------------
-
-Dependencies
-~~~~~~~~~~~~
-
-scikit-learn requires:
-
-- Python (>= 3.6)
-- NumPy (>= 1.13.3)
-- SciPy (>= 0.19.1)
-- joblib (>= 0.11)
-- threadpoolctl (>= 2.0.0)
-
-=======
-
-**Scikit-learn 0.20 was the last version to support Python 2.7 and Python 3.4.**
-scikit-learn 0.23 and later require Python 3.6 or newer.
-
-Scikit-learn plotting capabilities (i.e., functions start with ``plot_``
-and classes end with "Display") require Matplotlib (>= 2.1.1). For running the
-examples Matplotlib >= 2.1.1 is required. A few examples require
-scikit-image >= 0.13, a few examples require pandas >= 0.25.0, some examples
-require seaborn >= 0.9.0.
-
-User installation
-~~~~~~~~~~~~~~~~~
-
-If you already have a working installation of numpy and scipy,
-the easiest way to install scikit-learn is using ``pip``   ::
-
-    pip install -U scikit-learn
-
-or ``conda``::
-
-    conda install -c conda-forge scikit-learn
-
-The documentation includes more detailed `installation instructions <https://scikit-learn.org/stable/install.html>`_.
-
-
-Changelog
----------
-
-See the `changelog <https://scikit-learn.org/dev/whats_new.html>`__
-for a history of notable changes to scikit-learn.
-
-Development
------------
-
-We welcome new contributors of all experience levels. The scikit-learn
-community goals are to be helpful, welcoming, and effective. The
-`Development Guide <https://scikit-learn.org/stable/developers/index.html>`_
-has detailed information about contributing code, documentation, tests, and
-more. We've included some basic information in this README.
-
-Important links
-~~~~~~~~~~~~~~~
-
-- Official source code repo: https://github.com/scikit-learn/scikit-learn
-- Download releases: https://pypi.org/project/scikit-learn/
-- Issue tracker: https://github.com/scikit-learn/scikit-learn/issues
-
-Source code
-~~~~~~~~~~~
-
-You can check the latest sources with the command::
-
-    git clone https://github.com/scikit-learn/scikit-learn.git
-
-Contributing
-~~~~~~~~~~~~
-
-To learn more about making a contribution to scikit-learn, please see our
-`Contributing guide
-<https://scikit-learn.org/dev/developers/contributing.html>`_.
-
-Testing
-~~~~~~~
-
-After installation, you can launch the test suite from outside the
-source directory (you will need to have ``pytest`` >= 5.0.1 installed)::
-
-    pytest sklearn
-
-See the web page https://scikit-learn.org/dev/developers/advanced_installation.html#testing
-for more information.
-
-    Random number generation can be controlled during testing by setting
-    the ``SKLEARN_SEED`` environment variable.
-
-Submitting a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Before opening a Pull Request, have a look at the
-full Contributing page to make sure your code complies
-with our guidelines: https://scikit-learn.org/stable/developers/index.html
-
-Project History
----------------
+**scikit-learn** is a Python module for machine learning built on top of
+SciPy and is distributed under the 3-Clause BSD license.
 
 The project was started in 2007 by David Cournapeau as a Google Summer
 of Code project, and since then many volunteers have contributed. See
 the `About us <https://scikit-learn.org/dev/about.html#authors>`__ page
 for a list of core contributors.
 
-The project is currently maintained by a team of volunteers.
+It is currently maintained by a team of volunteers.
 
-**Note**: `scikit-learn` was previously referred to as `scikits.learn`.
+Website: https://scikit-learn.org
 
-Help and Support
-----------------
+**Added New Functionality**
+================================
 
-Documentation
-~~~~~~~~~~~~~
+from sklearn.metrics import fcost_score
 
-- HTML documentation (stable release): https://scikit-learn.org
-- HTML documentation (development version): https://scikit-learn.org/dev/
-- FAQ: https://scikit-learn.org/stable/faq.html
+fcost_score function is added in sklearn.metrics
 
-Communication
-~~~~~~~~~~~~~
+The F-Cost score is the product of cost function to the weighted harmonic mean of precision and recall,
+trying to reach its optimal value of positive real number and its worst 
+value at 0.
 
-- Mailing list: https://mail.python.org/mailman/listinfo/scikit-learn
-- IRC channel: ``#scikit-learn`` at ``webchat.freenode.net``
-- Gitter: https://gitter.im/scikit-learn/scikit-learn
-- Twitter: https://twitter.com/scikit_learn
-- Stack Overflow: https://stackoverflow.com/questions/tagged/scikit-learn
-- Website: https://scikit-learn.org
+This score accounts the **cost** for identifying True Values
+from Predicted Values. These costs are related to False Positive (FP), False Negative (FN) and True Positive (TP) values.
 
-Citation
-~~~~~~~~
+--True Negative(TN) is not taken as it is not involved in either Precision or Recall.
+The `beta` parameter determines the weight of recall in the combined
+score. ``beta < 1`` lends more weight to precision, while ``beta > 1``
+favors recall (``beta -> 0`` considers only precision, ``beta -> +inf``
+only recall).
 
-If you use scikit-learn in a scientific publication, we would appreciate citations: https://scikit-learn.org/stable/about.html#citing-scikit-learn
+The F1 score (also F-score or F-measure) is a measure of a test's accuracy. 
+It considers both the precision 'P' and the recall 'R' of the test to compute the score 
+(Source -- Wiki)
+
+beta = 1, which assumes the distribution is equally distributed.
+A smaller beta value, e.g 0.5, gives more weight to precision and less to recall, 
+whereas a larger beta value,e.g 2.0, gives less weight to precision and more weight to recall in the calculation of the score.
+It is a useful metric to use when both precision and recall are important but slightly more attention is needed on one or the other, 
+such as when false negatives are more important than false positives
+
+
+The F-cost score comes in role to assess the cost associated with missing critical elements, which varies from one requirement to other.
+
+**Let's understand it with some examples:**
+-------------------------------------------------------------
+A pharmaceutical company conducting test on rare disease which has occurance probabilty of 0.2% will want "High recall".
+and in order to optimize their model, the pharma company can choose the beta value and they would associate a cost factor with  FP, FN and TP.
+since they are focussed on finding the rare disease, there following can be the cost associated:
+
+- cost_FP = 5
+- cost_FN = 100
+- cost_TP = 0.01
+
+Here the actual values are not important (as they are chosed by user according to their requirements, but the ratio between the cost should be in focus)
+Since, the pharma company can afford to have some False Positive (FP), which they can eventually re-test, but having False Negative would be costly for them since the probabilty of the disease is 0.2%.
+
+
+*Lets take another example*, suppose you own a telemarketing company, who sells insurance to customers, and there are 20 employees involved with each of them can call 10 customers/day i.e total of 6000 customer/month (30 day month). 
+And Each month they call customers of particular reigon.(for sake of simplicity, there are 5 reigons in this example)
+Now, lets say out of the 6000 customers,  
+
+- TP --> Customers who needed insurance and recieved a call.
+- TN --> Customers who don't need insurance and didn't recieve a call.
+- FP --> Customers who don't need insurance and recieved a call.
+- FN --> Customers who needed insurance and didn't recieve a call.
+
+and since, selling insurance is a competitive business and you have many other rivals, who are doing the same thing.
+So, here we need **high recall**
+Therefor you want to develop a cost model which will penalize the FN heavilly, FP lightly and TP also lightly and choose beta accordingly.
+*Once we have that we can calculate the f_cost and in further steps it can be optimized.*
+
+Similary, any process which has very high cost to perform but is not critical, will have high cost for FP, and low cost for FN. **High Precison**.
+
+- cost_FP =  100
+- cost_FN = 05
+- cost_TP  = 0.1
+
+
+**FUTURE WORK**
+===================
+
+Thus we can think of many scenarios, when we can choose the cost function according to requirements, and then in further step we can optimze the threshold, thus minimizing the cost associated.
+
+*e.g*
+For a certain function with variables (TP,FP,FN,TN)
+
+- beta = 3.5
+- cost_FP =  100
+- cost_FN =  05
+- cost_TP  = 0.1
+
+therefore, for a given beta function, and  cost_FP, cost_FN, cost_TP which are chosen according to requirements, we will have
+
+the **cost_precision** would be = (cost_TP*TP)/((cost_TP * TP) + (cost_FP * FP))
+
+the **cost_recall** would be = (cost_TP*TP) / ((cost_TP * TP) + (cost_FN * FN))
+
+We can use, **Fcost_score** = ((1 + beta^2)*(cost_precision * cost_recall))/((beta^2 * cost_precision) * (cost_recall))
+
+Thus we can optimize the Fcost_score by varying the threshold, thus varying FP,FN and TP.
+
+
+
