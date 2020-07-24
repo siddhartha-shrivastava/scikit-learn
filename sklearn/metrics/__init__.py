@@ -109,6 +109,7 @@ __all__ = [
     'explained_variance_score',
     'f1_score',
     'fbeta_score',
+    'fcost_score',
     'fowlkes_mallows_score',
     'get_scorer',
     'hamming_loss',
