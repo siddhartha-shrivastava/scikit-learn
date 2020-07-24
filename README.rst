@@ -26,7 +26,7 @@
 .. image:: doc/logos/scikit-learn-logo.png
   :target: https://scikit-learn.org/
 
-<p color='red'>DISCLAIMER: </p> This library is built on top of a well established scikit learn library. You can check the original library link :https://github.com/scikit-learn/scikit-learn
+<p color='red'> DISCLAIMER: </p> This library is built on top of a well established scikit learn library. You can check the original library link :https://github.com/scikit-learn/scikit-learn
 
 **scikit-learn** is a Python module for machine learning built on top of SciPy and is distributed under the 3-Clause BSD license. The project was started in 2007 by David Cournapeau as a Google Summer
 of Code project, and since then many volunteers have contributed. See
@@ -64,22 +64,22 @@ A group of doctors are conducting tests, with a pharma company, on diagnosing a 
 
 To optimize their model, the pharma company can choose the beta value and they would associate a cost factor with  FP, FN and TP. Since they are focussed on finding the rare disease, lets assume the following can be the cost associated:
 
-   - cost_FP = 5
-   - cost_FN = 100
-   - cost_TP = 0.01
+   - `cost_FP = 5`
+   - `cost_FN = 100`
+   - `cost_TP = 0.01`
 
 Here the actual values are not important (as they are chosen by user according to their requirements, but the ratio between the cost should be in focus) Since, the pharma company can afford to have some False Positive (FP), which they can eventually re-test, but cannot afford to miss False Negative.
 
+**Hello Sir! We are selling insurance at discounted rate.**
 
- **Hello Sir! We are selling insurance at discounted rate.**
 *Lets take another example*, suppose you own a telemarketing company, which sells insurance to customers, and there are 20 employees involved with each of them can call 10 customers/day i.e total of 6000 customer/month (30 day month). 
 And Each month they call customers of particular region.(for sake of simplicity, there are 5 regions in this example)
 Now, lets say out of the 6000 customers the team can reach we define,  
 
-- TP --> Customers who needed insurance and recieved a call.
-- TN --> Customers who don't need insurance and didn't recieve a call.
-- FP --> Customers who don't need insurance and recieved a call.
-- FN --> Customers who needed insurance and didn't recieve a call.
+- `TP --> Customers who needed insurance and recieved a call.`
+- `TN --> Customers who don't need insurance and didn't recieve a call.`
+- `FP --> Customers who don't need insurance and recieved a call.`
+- `FN --> Customers who needed insurance and didn't recieve a call.`
 
 Selling insurance is a competitive business and you have many other rivals, who are doing the same thing. With limited number of man power and _infinite_ customers out there you would need **high precision** to have conversion rate.
 
@@ -89,9 +89,9 @@ Therefore you want to develop a cost model which will penalize the FP heavilly, 
 
 Similarly, any process which has very high cost to perform but is not critical, will have high cost for FP, and low cost for FN. **High Precision**.
 
-    - cost_FP =  100
-    - cost_FN = 05
-    - cost_TP  = 0.1
+    - `cost_FP  =  100`
+    - `cost_FN  = 05`
+    - `cost_TP  = 0.1`
 
 FUTURE WORK
 ---------------
@@ -99,10 +99,10 @@ Thus we can think of many scenarios, when we can choose the cost function accord
 
 *e.g* For a certain function with variables (TP,FP,FN,TN)
 
-    - beta = 3.5
-    - cost_FP =  100
-    - cost_FN =  05
-    - cost_TP  = 0.1
+    - `beta    = 3.5`
+    - `cost_FP =  100`
+    - `cost_FN =  05`
+    - `cost_TP = 0.1`
 
 Therefore, for a given beta function, and  `cost_FP`, `cost_FN`, `cost_TP` which are chosen according to requirements, we will have
 
