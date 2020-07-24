@@ -84,8 +84,8 @@ Similary, any process which has very high cost to perform but is not critical, w
 Thus we can think of many scenarios, when we can choose the cost function according to requirements, and then in further step we can optimze the threshold, thus minimizing the cost associated.
 
 *e.g*
-For a certain function
-
+For a certain function with variables (TP,FP,FN,TN)
+- beta = 3.5
 - cost_FP =  100
 - cost_FN =  05
 - cost_TP  = 0.1
