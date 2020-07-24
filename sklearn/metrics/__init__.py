@@ -23,7 +23,6 @@ from ._classification import confusion_matrix
 from ._classification import show_confusion_matrix_desc
 from ._classification import f1_score
 from ._classification import fbeta_score
-from ._classification import fcost_score
 from ._classification import hamming_loss
 from ._classification import hinge_loss
 from ._classification import jaccard_score
@@ -154,6 +153,7 @@ __all__ = [
     'roc_auc_score',
     'roc_curve',
     'SCORERS',
+    'show_confusion_matrix_desc'
     'silhouette_samples',
     'silhouette_score',
     'v_measure_score',
